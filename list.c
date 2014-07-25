@@ -87,10 +87,10 @@ main(int argc, char *argv[])
         fprintf(stdout, "node->num:%d\n", entry->num);
     }
 #endif    
-#if 0
+    struct list_head   *backup;
+#if 1
     list_for_each(pos, &node) {
 #else
-    struct list_head   *backup;
     list_for_each_safe(pos, backup, &node) {
 #endif
         entry = list_entry(pos, struct node, list);
@@ -98,10 +98,12 @@ main(int argc, char *argv[])
                 list_del(pos);
                 destroy_node(entry);
         }
+#if 0
         if (entry->num == 6) {
             list_move(pos, &node);
             break;
         }
+#endif
     }
 #if DEBUG
     fprintf(stdout, "check list head result :%d\n",
